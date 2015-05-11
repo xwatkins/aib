@@ -1,0 +1,108 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+  <div ng-app="aib" ng-controller="TypeaheadCtrl">
+    <nav class="navbar navbar-inverse" role="navigation" >
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Music Numbers</a>
+          <ul class="nav navbar-nav">
+            <li><a href="https://github.com/xwatkins/album-timeline">About</a></li>
+          </ul>
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input id="artist-search" type="text" ng-model="asyncSelected" placeholder="Artist name" typeahead="artist as artist.name for artist in getArtists($viewValue) | filter:$viewValue" typeahead-loading="loadingArtist" class="form-control" typeahead-on-select="onSelect($item, $model, $label)"  autocomplete="off">
+              <i ng-show="loadingArtist" class="glyphicon glyphicon-refresh" ></i>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="container-fluid">
+      <h1 id="artist-name" ng-bind="selectedArtist.name"></h1>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Album timeline</h3>
+          </div>
+          <div class="panel-body">
+            <timelineviz></timelineviz>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Popularity</h3>
+          </div>
+          <div class="panel-body">
+            <p>To do</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Live history</h3>
+          </div>
+          <div class="panel-body">
+            <div map></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img id="spinner" src="images/loading.gif" style="display:none">
+  </div>
+      
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/angular-underscore-module/angular-underscore-module.js"></script>
+    <script src="bower_components/topojson/topojson.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/common/d3module.js"></script>
+        <script src="scripts/timeline/timeline.js"></script>
+        <script src="scripts/services.js"></script>
+        <script src="scripts/tourmap/tourmap.js"></script>
+        <script src="scripts/app.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
