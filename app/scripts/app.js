@@ -30,7 +30,6 @@ angular.module('aib')
 
             $q.all([artistProfiles, spotifyInfo]).then(function(res){
                 var profiles = res[0];
-                console.log(profiles);
                 var artistsInfo = res[1];
 
                 //Info

@@ -40,10 +40,11 @@ angular.module('aib.services').factory('artistGigography', function($http, $q) {
     return {
         get: function(mbid, page) {
             mbid = mbid.replace('songkick:artist:','');
-            return $http.get('http://api.songkick.com/api/3.0/artists/' + mbid + '/gigography.json', {
+            return $http.jsonp('http://api.songkick.com/api/3.0/artists/' + mbid + '/gigography.json', {
                 params: {
                     apikey: songkickID,
-                    page: page
+                    page: page,
+                    jsoncallback: 'JSON_CALLBACK'
                 }
             }).then(function(res) {
                 // Get total number of pages
@@ -51,10 +52,11 @@ angular.module('aib.services').factory('artistGigography', function($http, $q) {
                 var promises = [];
                 for(var i=1;i<=pages;i++) {
                     promises.push(
-                    $http.get('http://api.songkick.com/api/3.0/artists/' + mbid + '/gigography.json', {
+                    $http.jsonp('http://api.songkick.com/api/3.0/artists/' + mbid + '/gigography.json', {
                         params: {
                             apikey: songkickID,
-                            page: i
+                            page: i,
+                            jsoncallback: 'JSON_CALLBACK'
                         }
                     }));
                 }
