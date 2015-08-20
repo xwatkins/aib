@@ -23,7 +23,7 @@
     <nav class="navbar navbar-inverse" role="navigation" >
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Music Numbers</a>
+          <a class="navbar-brand" href="#/">Artist Information Dashboard</a>
           <ul class="nav navbar-nav">
             <li><a href="https://github.com/xwatkins/album-timeline">About</a></li>
           </ul>
@@ -39,43 +39,8 @@
 
 
     <div class="container-fluid">
-      <h1 id="artist-name" ng-bind="selectedArtist.name"></h1>
-      <div class="col-md-6">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Album timeline</h3>
-          </div>
-          <div class="panel-body" ng-show="!loadingTimeline">
-            <timelineviz></timelineviz>
-          </div>
-          <div class="text-center" ng-show="loadingTimeline">
-            <img id="spinner" src="images/spinner.gif">
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Popularity</h3>
-          </div>
-          <div class="panel-body">
-            <p>To do</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Live history</h3>
-          </div>
-          <div class="panel-body" ng-show="!loadingHistory">
-            <div map></div>
-          </div>
-        <div class="text-center" ng-show="loadingHistory">
-          <img id="spinner" src="images/spinner.gif">
-        </div>
-        </div>
-      </div>
+      <div ng-view=""></div>
     </div>
-  </div>
       
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>

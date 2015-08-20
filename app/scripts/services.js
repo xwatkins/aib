@@ -9,6 +9,11 @@ var echonestID = 'ZIIXBXAKFJWAUX2SN';
 angular.module('aib.services').factory('artistService', ['$http', function($http) {
     return {
         getArtist: function(artistId) {
+            return $http.get('https://api.spotify.com/v1/artists/' + artistId).then(function(artist) {
+                return artist;
+            });
+        },
+        getArtistAlbums: function(artistId) {
             return $http.get('https://api.spotify.com/v1/artists/' + artistId + '/albums', {
                 params: {
                     album_type: 'album',
