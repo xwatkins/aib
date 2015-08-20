@@ -24,6 +24,9 @@ angular.module('aib')
         };
         $scope.onSelect = function($model) {
             $scope.selectedArtist = $model;
+            $scope.loadingTimeline = true;
+            $scope.loadingHistory = true;
+
             // Get artist id mapping
             var artistProfiles = echoNest.getArtistProfile($scope.selectedArtist.id);
             var spotifyInfo = artistService.getArtist($scope.selectedArtist.id);
@@ -61,6 +64,8 @@ angular.module('aib')
                 artistGigography.get(songkick.foreign_id).then(function(d){
                 	$scope.gigography = d;
                 });
+                $scope.loadingTimeline = false;
+                $scope.loadingHistory = false;
             });
         };
     }
