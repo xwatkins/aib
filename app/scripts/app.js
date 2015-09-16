@@ -14,7 +14,7 @@ angular
     .module('aib').config(function($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'views/home.html'
+                redirectTo: '/dashboard/0wz0jO9anccPzH04N7FLBH' //default to LOW
             }).when('/dashboard/:artistId', {
                 templateUrl: 'views/dashboard.html',
                 controller: 'AIBController'

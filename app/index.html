@@ -20,19 +20,19 @@
     <![endif]-->
 
   <div ng-app="aib" ng-controller="TypeaheadCtrl">
-    <nav class="navbar navbar-inverse" role="navigation" >
+    <nav class="navbar navbar-default" role="navigation" >
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#/">Artist Information Dashboard</a>
-          <ul class="nav navbar-nav">
-            <li><a href="https://github.com/xwatkins/album-timeline">About</a></li>
-          </ul>
+          <a class="navbar-brand" href="#/">Artist Lowdown</a>
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
               <input id="artist-search" type="text" ng-model="asyncSelected" placeholder="Artist name" typeahead="artist as artist.name for artist in getArtists($viewValue) | filter:$viewValue" typeahead-loading="loadingArtist" class="form-control" typeahead-on-select="onSelect($item, $model, $label)"  autocomplete="off">
               <i ng-show="loadingArtist" class="glyphicon glyphicon-refresh" ></i>
             </div>
           </form>
+          <ul class="nav navbar-nav">
+            <li><a href="https://github.com/xwatkins/album-timeline">Get the code</a></li>
+          </ul>
         </div>
       </div>
     </nav>
@@ -57,13 +57,13 @@
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/angular-underscore-module/angular-underscore-module.js"></script>
     <script src="bower_components/topojson/topojson.js"></script>
+    <script src="bower_components/boostrap-sass/assets/javascripts/bootstrap.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
