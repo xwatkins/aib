@@ -1,10 +1,12 @@
 language: node_js
 node_js:
   - "stable"
-before_script: 
+before_install:
+  - gem install sass
+  - gem install compass
   - npm install -g grunt-cli
   - npm install -g bower
-  - npm install -g compass
-  - bower install
 install: npm install
+before_script: 
+  - bower install
 script: grunt build
