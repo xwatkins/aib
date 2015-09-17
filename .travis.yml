@@ -9,4 +9,6 @@ before_install:
 install: npm install
 before_script: 
   - bower install
-script: grunt build
+script: 
+  - grunt build
+  - grunt buildcontrol:pages
