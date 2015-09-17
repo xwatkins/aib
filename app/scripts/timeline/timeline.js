@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('aib.timeline', [
-    'd3'
+    'd3',
+    'underscore'
   ]);
 
 
@@ -22,7 +23,7 @@ angular.module('aib.timeline')
                     });
 
                     var drawVisualisation = function(start, end, albums) {
-                        var width = 670,
+                        var width = 700,
                             height = 400,
                             color = d3.scale.category20b();
 
@@ -39,21 +40,13 @@ angular.module('aib.timeline')
                             .range([PADDING, width - PADDING * 2]);
 
                         var yPopScale = d3.scale.linear()
-                            .domain([d3.min(albums, function(d) {
-                                return d.popularity;
-                            }), d3.max(albums, function(d) {
-                                return d.popularity;
-                            })])
+                            .domain([0, 100])
                             .range([height - PADDING, PADDING]);
 
 
                         var rScale = d3.scale.linear()
-                            .domain([d3.min(albums, function(d) {
-                                return d.popularity;
-                            }), d3.max(albums, function(d) {
-                                return d.popularity;
-                            })])
-                            .range([10, 50]);
+                            .domain([0, 100])
+                            .range([5, 32]);
 
                         var opacityScale = d3.scale.linear()
                             .domain([d3.min(albums, function(d) {
@@ -73,7 +66,7 @@ angular.module('aib.timeline')
                                     .transition()
                                     .duration(100)
                                     .style({
-                                        // opacity: '1'
+                                        opacity: '1'
                                     });
                             })
                             .on('mouseleave', function() { //Should add something to pin a name to a node
@@ -82,40 +75,62 @@ angular.module('aib.timeline')
                                     .transition()
                                     .duration(500)
                                     .style({
-                                        // opacity: '0'
+                                        opacity: '0'
                                     });
                             })
                         ;
 
-
                         albumGroup.append('circle')
-                            .attr('fill', function(d) {
-                                return color(d.name);
-                            })
-                            .attr('fill-opacity', function(d) {
-                                return opacityScale(d.popularity);
-                            })
+                            .attr('fill', 'black')
                             .attr('cx', function(d) {
                                 return xScale(new Date(d.release_date).getFullYear());
                             })
-                            .attr('cy', height)
-                            .transition()
-                            .duration(1000)
                             .attr('cy', function(d) {
                                 return yPopScale(d.popularity);
                             })
-                            .attr('r', 10)
-                            .transition()
-                            .duration(500)
+                            .attr('r', function(d) {
+                                return rScale(d.popularity) + 1;
+                            });
+
+                        albumGroup.append('clipPath')
+                            .attr('id', function(d){
+                                    return 'clip-' + d.id;
+                            })
+                            .append('circle')
+                            .attr('cx', function(d) {
+                                return xScale(new Date(d.release_date).getFullYear());
+                            })
+                            .attr('cy', function(d) {
+                                return yPopScale(d.popularity);
+                            })
                             .attr('r', function(d) {
                                 return rScale(d.popularity);
                             });
 
+                        albumGroup.append('svg:image')
+                                .attr('xlink:href', function(d){
+                                    return getSmallImage(d.images).url;
+                                })
+                                .attr('clip-path', function(d){
+                                    return 'url(#clip-' + d.id + ')';
+                                })
+                                .attr('x', function(d) {
+                                    return xScale(new Date(d.release_date).getFullYear()) - rScale(d.popularity);
+                                })
+                                .attr('y', function(d){
+                                    return yPopScale(d.popularity) - rScale(d.popularity);
+                                })
+                                .attr('height', function(d){
+                                    return rScale(d.popularity) * 2;
+                                })
+                                .attr('width', function(d){
+                                    return rScale(d.popularity) * 2;
+                                });
 
                         albumGroup
                             .append('text')
                             .text(function(d) {
-                                return d.name;
+                                return (new Date(d.release_date).getFullYear() + d.name);
                             })
                             .attr('x', function(d) {
                                 return xScale(new Date(d.release_date).getFullYear());
@@ -129,8 +144,8 @@ angular.module('aib.timeline')
                             .attr('text-anchor', 'middle')
                             .attr('font-family', 'sans-serif')
                             .attr('font-size', '11px')
-                            .attr('fill', 'black');
-                            // .attr('opacity', '0');
+                            .attr('fill', 'black')
+                            .attr('opacity', '0');
 
                         // create axes
                         var xAxis = d3.svg.axis()
@@ -163,5 +178,8 @@ angular.module('aib.timeline')
     }
 ]);
 
+var getSmallImage = function(images) {
+    return _.findWhere(images, {width:64});
+}
 
 
