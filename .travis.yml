@@ -5,6 +5,5 @@ before_script:
 	- npm install -g grunt-cli
 	- npm install -g bower
 	- bower install
-install: 
-  - npm install
+install: npm install
 script: grunt build
