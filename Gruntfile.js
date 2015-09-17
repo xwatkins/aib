@@ -431,7 +431,7 @@ module.exports = function (grunt) {
       },
       pages: {
         options: {
-          remote: 'git@github.com:xwatkins/artis-lowdown.git',
+          remote: 'git@github.com:xwatkins/artist-lowdown.git',
           branch: 'gh-pages'
         }
       },
